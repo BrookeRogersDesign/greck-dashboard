@@ -2,6 +2,27 @@
    Calm, editorial base (cream, ink, hairlines, lots of air);
    funk comes from her painted prints and hand-drawn marks, used sparingly. */
 
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: local('PP Neue Montreal Light'), local('PPNeueMontreal-Light'), url('/fonts/PPNeueMontreal-Light.otf') format('opentype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: local('PP Neue Montreal Regular'), local('PPNeueMontreal-Regular'), url('/fonts/PPNeueMontreal-Regular.otf') format('opentype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: local('PP Neue Montreal Italic'), local('PPNeueMontreal-Italic'), url('/fonts/PPNeueMontreal-Italic.otf') format('opentype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: local('PP Neue Montreal Semibold'), local('PPNeueMontreal-Semibold'), url('/fonts/PPNeueMontreal-Semibold.otf') format('opentype');
+  font-weight: 500 600; font-style: normal; font-display: swap;
+}
+
 :root {
   --paper: #FAF7F0;
   --card: #FFFDF8;
@@ -14,8 +35,8 @@
   --neon: #D9F51C;
   --neon-soft: #F1FBB8;
 
-  --mono: 'DM Mono', ui-monospace, monospace;
-  --sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --sans: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono: var(--sans);   /* small caps labels now use Neue Montreal, tracked wide */
   --serif: 'Instrument Serif', Georgia, serif;
 
   --gutter: clamp(16px, 4vw, 56px);
@@ -42,7 +63,7 @@ a { color: inherit; }
 
 h1, h2, h3 { margin: 0; font-weight: 500; }
 h2 {
-  font: 500 13px/1 var(--mono);
+  font: 500 14.5px/1 var(--mono);
   letter-spacing: .14em;
   margin-bottom: 26px;
   display: inline-block;
@@ -55,7 +76,7 @@ h2 {
 /* ── Buttons & chips ────────────────────────────────────────────────── */
 
 .btn {
-  font: 500 11.5px/1 var(--mono);
+  font: 500 13px/1 var(--mono);
   letter-spacing: .12em;
   padding: 11px 16px;
   border: 1px solid var(--ink);
@@ -68,12 +89,12 @@ h2 {
 .btn-solid:hover { background: var(--neon); color: var(--ink); border-color: var(--ink); }
 .btn-danger { border-color: var(--red); color: var(--red); }
 .btn-danger:hover { background: var(--red); color: #fff; }
-.link-btn { font: 400 12px var(--mono); color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.link-btn { font: 400 13.5px var(--mono); color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
 .link-btn:hover { color: var(--ink); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip {
-  font: 400 12px/1 var(--mono);
+  font: 400 13.5px/1 var(--mono);
   padding: 8px 13px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -108,9 +129,9 @@ h2 {
 .login::before { top: -12%; right: -10%; transform: rotate(14deg); }
 .login::after { bottom: -14%; left: -12%; background-position: 50% 80%; transform: rotate(-8deg); }
 .login .logo { width: min(240px, 60vw); mix-blend-mode: multiply; filter: brightness(1.12) contrast(1.4); }
-.login h1 { font: 500 12px var(--mono); letter-spacing: .2em; margin-bottom: 18px; }
+.login h1 { font: 500 13.5px var(--mono); letter-spacing: .2em; margin-bottom: 18px; }
 .login form { display: grid; gap: 10px; width: min(300px, 80vw); text-align: left; }
-.login label { font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.login label { font: 400 12.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .login input {
   padding: 14px 16px;
   border: 1px solid var(--line);
@@ -125,7 +146,7 @@ h2 {
 
 .demo {
   background: var(--neon);
-  font: 400 11px/1 var(--mono);
+  font: 400 12.5px/1 var(--mono);
   letter-spacing: .08em;
   text-align: center;
   padding: 9px var(--gutter);
@@ -160,11 +181,11 @@ h2 {
   background: var(--prints) 48% 53% / 900% auto;
   transform: rotate(-12deg);
 }
-.stat .lbl { font: 500 11px/1.3 var(--mono); letter-spacing: .14em; max-width: 9ch; }
+.stat .lbl { font: 500 12.5px/1.3 var(--mono); letter-spacing: .14em; max-width: 9ch; }
 .brand { display: grid; gap: 10px; justify-items: start; }
-.tagline { font: 500 8.5px/1.4 var(--mono); letter-spacing: .32em; color: var(--ink); }
+.tagline { font: 500 10px/1.4 var(--mono); letter-spacing: .32em; color: var(--ink); }
 .login .tagline { margin-top: -6px; }
-.who { font: 400 11px var(--mono); letter-spacing: .1em; color: var(--muted); text-align: right; }
+.who { font: 400 12.5px var(--mono); letter-spacing: .1em; color: var(--muted); text-align: right; }
 
 /* ── Grid ───────────────────────────────────────────────────────────── */
 
@@ -206,9 +227,9 @@ body[data-role='kenzie'] .grid {
   border-radius: var(--radius);
   padding: 22px 22px 24px;
 }
-.phase-tag { font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.phase-tag { font: 400 12.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .phase h3 { font: 400 32px/1.05 var(--serif); margin: 10px 0 18px; }
-.phase-meta { display: flex; justify-content: space-between; font: 400 12px var(--mono); margin-bottom: 10px; }
+.phase-meta { display: flex; justify-content: space-between; font: 400 13.5px var(--mono); margin-bottom: 10px; }
 .bar {
   height: 20px;
   border-radius: 999px;
@@ -256,7 +277,7 @@ button.cp-mark:hover .ring { fill: var(--neon-soft); }
 .cp.done .ring { fill: var(--neon); }
 .cp.overdue .ring { stroke: var(--red); stroke-width: 2.2; }
 .cp.next .ring { fill: var(--pink-soft); }
-.cp-date { font: 500 12px var(--mono); letter-spacing: .06em; margin-top: 14px; }
+.cp-date { font: 500 13.5px var(--mono); letter-spacing: .06em; margin-top: 14px; }
 .cp.overdue .cp-date { color: var(--red); }
 .cp-next {
   font-size: 9.5px;
@@ -282,7 +303,7 @@ button.cp-mark:hover .ring { fill: var(--neon-soft); }
   padding-bottom: 12px;
   border-bottom: 1px solid var(--ink);
 }
-.group h3 span { font: 400 12px var(--mono); color: var(--muted); }
+.group h3 span { font: 400 13.5px var(--mono); color: var(--muted); }
 
 .tasks { list-style: none; margin: 0; padding: 0; }
 .task {
@@ -301,12 +322,12 @@ button.check:hover .ring { fill: var(--neon-soft); }
 .t-title { font-size: 15.5px; line-height: 1.35; }
 .t-main:hover .t-title { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .task.done .t-title { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(30,20,18,.35); text-decoration-thickness: 1px; }
-.t-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font: 400 11.5px var(--mono); color: var(--muted); }
+.t-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font: 400 13px var(--mono); color: var(--muted); }
 .due { color: var(--ink); }
 .task.overdue .due { color: var(--red); }
 
 .owner {
-  font: 500 10.5px/1 var(--mono);
+  font: 500 12px/1 var(--mono);
   letter-spacing: .08em;
   text-transform: uppercase;
   padding: 4px 8px 3px;
@@ -318,7 +339,7 @@ button.check:hover .ring { fill: var(--neon-soft); }
 .o-both { background: var(--pink-soft); border-color: var(--pink); }
 
 .status {
-  font: 400 11.5px var(--mono);
+  font: 400 13px var(--mono);
   padding: 7px 26px 7px 11px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -372,16 +393,16 @@ textarea { resize: vertical; }
 
 .note-form { margin-bottom: 22px; }
 .note-form .row .btn { margin-left: auto; }
-.radio { display: inline-flex; align-items: center; gap: 6px; font: 400 12px var(--mono); }
+.radio { display: inline-flex; align-items: center; gap: 6px; font: 400 13.5px var(--mono); }
 .radio input { accent-color: var(--ink); }
 .notes { list-style: none; margin: 0; padding: 0; }
 .note { padding: 14px 0; border-bottom: 1px solid var(--line); }
-.note-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 400 11.5px var(--mono); color: var(--muted); }
+.note-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 400 13px var(--mono); color: var(--muted); }
 .note-meta .link-btn { margin-left: auto; font-size: 11px; }
 .note p { margin: 8px 0 0; white-space: pre-wrap; }
 .note.decision p { font: 400 20px/1.25 var(--serif); }
 .decision-tag {
-  font: 500 10px/1 var(--mono);
+  font: 500 11.5px/1 var(--mono);
   letter-spacing: .12em;
   color: var(--ink);
   background: var(--neon);
@@ -404,13 +425,13 @@ dialog {
 dialog::backdrop { background: rgba(30, 20, 18, .35); backdrop-filter: blur(3px); }
 .sheet { padding: 28px; display: grid; gap: 16px; }
 .sheet h2 { margin-bottom: 0; }
-.sheet label { display: grid; gap: 6px; font: 400 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.sheet label { display: grid; gap: 6px; font: 400 12.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .sheet label > * { text-transform: none; letter-spacing: 0; color: var(--ink); font-family: var(--sans); }
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .t-big { font: 400 30px/1.1 var(--serif); margin: 0; }
 .t-notes { white-space: pre-wrap; margin: 0; }
 .assets { border-top: 1px solid var(--line); padding-top: 18px; }
-.assets h3 { font: 500 11px var(--mono); letter-spacing: .14em; margin-bottom: 10px; }
+.assets h3 { font: 500 12.5px var(--mono); letter-spacing: .14em; margin-bottom: 10px; }
 .assets ul { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
 .assets li { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; }
 .assets .fine { margin: 0; }
@@ -423,7 +444,7 @@ dialog::backdrop { background: rgba(30, 20, 18, .35); backdrop-filter: blur(3px)
   transform: translateX(-50%);
   background: var(--ink);
   color: var(--paper);
-  font: 400 13px var(--mono);
+  font: 400 14.5px var(--mono);
   padding: 12px 18px;
   border-radius: 999px;
   z-index: 100;
