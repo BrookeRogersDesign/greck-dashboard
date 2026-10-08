@@ -4,5 +4,3 @@ dist
 .env.local
 .DS_Store
 
-# Licensed font files: only commit if the license allows web embedding in a public repo
-public/fonts/
