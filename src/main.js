@@ -46,6 +46,16 @@ const pct = (done, total) => (total ? Math.round((done / total) * 100) : 0);
 const RING = 'M12 3.2c5-.3 9 3.6 8.8 8.9-.2 5-4 8.6-9 8.7C6.6 20.9 3 17 3.2 11.8 3.4 7 6.9 3.5 12 3.2z';
 const mark = (done) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path class="ring" d="${RING}"/>${done ? '<path class="tick" d="M7.6 12.4l3.1 3.2 5.9-7.4"/>' : ''}</svg>`;
 
+// Two-tap confirm (works in embedded viewers where confirm() is blocked).
+function armed(el) {
+  if (el.dataset.armed) return true;
+  el.dataset.armed = '1';
+  const text = el.textContent;
+  el.textContent = el.classList.contains('link-btn') ? 'tap again' : 'SURE?';
+  setTimeout(() => { delete el.dataset.armed; el.textContent = text; }, 3000);
+  return false;
+}
+
 function toast(msg) {
   const el = document.createElement('div');
   el.className = 'toast';
@@ -419,7 +429,7 @@ dialog.addEventListener('click', async (e) => {
   if (!el) return;
   const id = el.dataset.id;
   if (el.dataset.act === 'close') dialog.close();
-  if (el.dataset.act === 'task-delete' && confirm('Delete this task?')) { dialog.close(); await act('dash_task_delete', { p_id: id }); }
+  if (el.dataset.act === 'task-delete' && armed(el)) { dialog.close(); await act('dash_task_delete', { p_id: id }); }
   if (el.dataset.act === 'asset-delete') { await act('dash_asset_delete', { p_id: id }); reopen(); }
   if (el.dataset.act === 'asset-add') {
     const form = el.closest('form');
@@ -442,7 +452,7 @@ app.addEventListener('click', async (e) => {
 
   switch (a) {
     case 'logout': state.code = null; store.set(CODE_KEY, null); renderLogin(); break;
-    case 'demo-reset': if (confirm('Reset demo data?')) { backend.reset(); await load(); } break;
+    case 'demo-reset': if (armed(el)) { backend.reset(); await load(); } break;
     case 'toggle': await act('dash_task_save', { p: { id, status: task.status === 'done' ? 'not_started' : 'done' } }); break;
     case 'open': openTask(id); break;
     case 'new-task': openTask('new'); break;
@@ -456,8 +466,8 @@ app.addEventListener('click', async (e) => {
     case 'link-edit': state.editingLink = id; render(); app.querySelector('.link-edit input[name=url]')?.focus(); break;
     case 'link-new': state.editingLink = 'new'; render(); app.querySelector('.link-edit input')?.focus(); break;
     case 'link-cancel': state.editingLink = null; render(); break;
-    case 'link-delete': if (confirm('Delete this link?')) { state.editingLink = null; await act('dash_link_delete', { p_id: id }); } break;
-    case 'log-delete': if (confirm('Delete this note?')) await act('dash_log_delete', { p_id: id }); break;
+    case 'link-delete': if (armed(el)) { state.editingLink = null; await act('dash_link_delete', { p_id: id }); } break;
+    case 'log-delete': if (armed(el)) await act('dash_log_delete', { p_id: id }); break;
   }
 });
 
