@@ -16,6 +16,6 @@ select dash_set_passcode('kenzie', 'change-me-kenzie');
 `);
 console.log(rows('phases', ['id', 'name', 'tag', 'target_label', 'target_date', 'sort'], phases));
 console.log(rows('milestones', ['label', 'date', 'end_date', 'done', 'sort'], milestones));
-console.log(rows('tasks', ['title', 'phase_id', 'owner', 'due_date', 'status', 'notes', 'sort'], tasks));
+console.log(rows('tasks', ['title', 'phase_id', 'section', 'owner', 'due_date', 'status', 'notes', 'sort'], tasks));
 console.log(rows('links', ['label', 'url', 'sort'], links));
 console.log(rows('log', ['author', 'kind', 'body', 'created_at'], log));

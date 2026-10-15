@@ -185,6 +185,14 @@ h2 {
 .brand { display: grid; gap: 10px; justify-items: start; }
 .tagline { font: 500 10px/1.4 var(--mono); letter-spacing: .32em; color: var(--ink); }
 .login .tagline { margin-top: -6px; }
+.event {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: 400 13.5px/1.4 var(--sans);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.event span { font-weight: 600; letter-spacing: .14em; margin-right: 6px; }
 .who { font: 400 12.5px var(--mono); letter-spacing: .1em; color: var(--muted); text-align: right; }
 
 /* ── Grid ───────────────────────────────────────────────────────────── */
@@ -220,7 +228,7 @@ body[data-role='kenzie'] .grid {
 
 /* ── Phases ─────────────────────────────────────────────────────────── */
 
-.phases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.phases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .phase {
   background: var(--card);
   border: 1px solid var(--line);
@@ -247,6 +255,7 @@ body[data-role='kenzie'] .grid {
 .phase-1 .fill { background-position: 30% 38%; }
 .phase-2 .fill { background-position: 60% 54%; }
 .phase-3 .fill { background-position: 45% 79%; }
+.phase-4 .fill { background-position: 55% 92%; }
 
 /* ── Checkpoints ────────────────────────────────────────────────────── */
 
@@ -302,6 +311,13 @@ button.cp-mark:hover .ring { fill: var(--neon-soft); }
   gap: 10px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--ink);
+}
+.sub {
+  margin: 22px 0 0;
+  font: 500 11.5px var(--mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 .group h3 span { font: 400 13.5px var(--mono); color: var(--muted); }
 
@@ -401,6 +417,8 @@ textarea { resize: vertical; }
 .note-meta .link-btn { margin-left: auto; font-size: 11px; }
 .note p { margin: 8px 0 0; white-space: pre-wrap; }
 .note.decision p { font: 400 20px/1.25 var(--serif); }
+.open-tag { background: var(--pink); }
+.note.open p { font: italic 400 20px/1.25 var(--serif); }
 .decision-tag {
   font: 500 11.5px/1 var(--mono);
   letter-spacing: .12em;
@@ -452,6 +470,10 @@ dialog::backdrop { background: rgba(30, 20, 18, .35); backdrop-filter: blur(3px)
 }
 @keyframes pop { from { transform: translate(-50%, 8px); opacity: 0; } }
 
+@media (max-width: 1180px) and (min-width: 901px) {
+  .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 /* ── Mobile ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
@@ -472,7 +494,7 @@ dialog::backdrop { background: rgba(30, 20, 18, .35); backdrop-filter: blur(3px)
   body[data-role='kenzie'] .area-tasks { order: 0; }
 
   .phases {
-    grid-template-columns: repeat(3, minmax(240px, 82%));
+    grid-template-columns: repeat(4, minmax(240px, 82%));
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     margin: 0 calc(var(--gutter) * -1);

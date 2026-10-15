@@ -35,7 +35,7 @@ function supabaseBackend() {
 // ── Demo backend ────────────────────────────────────────────────────────
 
 function demoBackend() {
-  const KEY = 'greck-demo-db';
+  const KEY = 'greck-demo-db-v2'; // bump when seed data changes
   const id = () => crypto.randomUUID();
   const now = () => new Date().toISOString();
 
@@ -70,7 +70,7 @@ function demoBackend() {
         Object.assign(existing, p, { completed_at: doneAt(existing.completed_at, p.status ?? existing.status), updated_at: now(), updated_by: r });
       } else {
         db.tasks.push({
-          id: id(), status: 'not_started', notes: '', owner: 'brooke', phase_id: null, due_date: null,
+          id: id(), status: 'not_started', notes: '', section: '', owner: 'brooke', phase_id: null, due_date: null,
           sort: Math.max(0, ...db.tasks.map((t) => t.sort)) + 1, ...p,
           completed_at: doneAt(null, p.status), updated_at: now(), updated_by: r,
         });

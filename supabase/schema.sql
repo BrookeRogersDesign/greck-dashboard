@@ -37,6 +37,7 @@ create table if not exists tasks (
   id           uuid primary key default gen_random_uuid(),
   title        text not null,
   phase_id     text references phases(id) on delete set null,
+  section      text not null default '',
   owner        text not null default 'brooke' check (owner in ('brooke', 'kenzie', 'both')),
   due_date     date,
   status       text not null default 'not_started'
@@ -67,10 +68,15 @@ create table if not exists links (
 create table if not exists log (
   id         uuid primary key default gen_random_uuid(),
   author     text not null check (author in ('brooke', 'kenzie')),
-  kind       text not null default 'note' check (kind in ('note', 'decision')),
+  kind       text not null default 'note' check (kind in ('note', 'decision', 'open')),
   body       text not null,
   created_at timestamptz not null default now()
 );
+
+-- Upgrades for databases created before these columns existed.
+alter table tasks add column if not exists section text not null default '';
+alter table log drop constraint if exists log_kind_check;
+alter table log add constraint log_kind_check check (kind in ('note', 'decision', 'open'));
 
 alter table dash_users enable row level security;
 alter table phases     enable row level security;
@@ -155,10 +161,11 @@ begin
   end if;
 
   if v_id is null then
-    insert into tasks (title, phase_id, owner, due_date, status, notes, sort, completed_at, updated_by)
+    insert into tasks (title, phase_id, section, owner, due_date, status, notes, sort, completed_at, updated_by)
     values (
       p->>'title',
       nullif(p->>'phase_id', ''),
+      coalesce(p->>'section', ''),
       coalesce(p->>'owner', 'brooke'),
       nullif(p->>'due_date', '')::date,
       coalesce(p->>'status', 'not_started'),
@@ -171,6 +178,7 @@ begin
     update tasks set
       title        = coalesce(p->>'title', title),
       phase_id     = case when p ? 'phase_id' then nullif(p->>'phase_id', '') else phase_id end,
+      section      = coalesce(p->>'section', section),
       owner        = coalesce(p->>'owner', owner),
       due_date     = case when p ? 'due_date' then nullif(p->>'due_date', '')::date else due_date end,
       status       = coalesce(p->>'status', status),

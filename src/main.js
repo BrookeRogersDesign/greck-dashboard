@@ -1,5 +1,6 @@
 import './styles.css';
 import { backend, DEMO } from './store.js';
+import { event } from './seed.js';
 
 const BASE = import.meta.env.BASE_URL;
 const CODE_KEY = 'greck-passcode';
@@ -34,7 +35,6 @@ const pad = (n) => String(n).padStart(2, '0');
 const todayStr = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
 const parseDate = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
 const fmtDate = (s) => (s ? parseDate(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '');
-const daysBetween = (a, b) => Math.round((parseDate(b) - parseDate(a)) / 86400000);
 const fmtStamp = (iso) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
 const isMine = (t, role) => t.owner === role || t.owner === 'both';
@@ -140,8 +140,7 @@ function render() {
   const { data, role } = state;
   document.body.dataset.role = role;
   const done = data.tasks.filter((t) => t.status === 'done').length;
-  const popup = data.phases.find((p) => p.id === 'popup')?.target_date || '2026-12-05';
-  const days = daysBetween(todayStr(), popup);
+  const count = countdown();
   const scrollY = window.scrollY;
 
   app.innerHTML = `
@@ -149,10 +148,11 @@ function render() {
     <header class="top">
       <div class="brand"><img class="logo" src="${BASE}logo.png" alt="greck"><span class="tagline">PAINTED AND SEWN IN HOUSTON TEXAS</span></div>
       <div class="stats">
-        <div class="stat"><span class="big">${days > 0 ? days : days === 0 ? 'TODAY' : '✓'}</span><span class="lbl">${days > 0 ? `DAY${days === 1 ? '' : 'S'} UNTIL POP-UP.` : days === 0 ? 'POP-UP.' : 'POP-UP DONE.'}</span></div>
+        <div class="stat"><span class="big">${count.big}</span><span class="lbl">${count.lbl}</span></div>
         <div class="stat"><span class="big">${pct(done, data.tasks.length)}%</span><span class="lbl">COMPLETE.</span></div>
       </div>
       <div class="who">${esc(OWNER[role]).toUpperCase()} · <button class="link-btn" data-act="logout">log out</button></div>
+      <p class="event"><span>POP-UP.</span> ${esc(event.line)}</p>
     </header>
     <div class="grid">
       ${renderPhases()}
@@ -163,6 +163,16 @@ function render() {
       ${renderNotes()}
     </div>`;
   window.scrollTo(0, scrollY);
+}
+
+// Counts down to the pop-up start (11am Central on Dec 5).
+function countdown() {
+  const ms = new Date(event.starts_at) - Date.now();
+  const days = Math.floor(ms / 86400000);
+  if (days >= 1) return { big: days, lbl: `DAY${days === 1 ? '' : 'S'} UNTIL POP-UP.` };
+  if (ms > 0) { const h = Math.ceil(ms / 3600000); return { big: `${h}h`, lbl: 'UNTIL POP-UP.' }; }
+  if (ms > -5 * 3600000) return { big: 'NOW', lbl: 'POP-UP IS ON.' };
+  return { big: '✓', lbl: 'POP-UP DONE.' };
 }
 
 function renderPhases() {
@@ -237,6 +247,17 @@ function taskRow(t, { showPhase = false } = {}) {
     </li>`;
 }
 
+// Group a phase's tasks by sub-section, in the order sections first appear.
+function sectionsOf(ts) {
+  const map = new Map();
+  for (const t of ts) {
+    const k = t.section || '';
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(t);
+  }
+  return [...map];
+}
+
 function renderTasks() {
   const { role, data, filters } = state;
   const chip = (group, value, label) =>
@@ -256,7 +277,9 @@ function renderTasks() {
     ? groups.map(({ p, ts }) => `
         <div class="group">
           <h3>${esc(p.name)} <span>${ts.filter((t) => t.status === 'done').length}/${ts.length}</span></h3>
-          <ul class="tasks">${ts.map((t) => taskRow(t)).join('')}</ul>
+          ${sectionsOf(ts).map(([name, items]) => `
+            ${name ? `<h4 class="sub">${esc(name)}</h4>` : ''}
+            <ul class="tasks">${items.map((t) => taskRow(t)).join('')}</ul>`).join('')}
         </div>`).join('')
     : `<p class="empty">${filters.hideDone ? 'All done here.' : 'No tasks match.'}</p>`;
 
@@ -331,7 +354,7 @@ function renderNotes() {
       <div class="note-meta">
         <span>${fmtStamp(g.created_at)}</span>
         <span class="owner o-${g.author}">${esc(OWNER[g.author])}</span>
-        ${g.kind === 'decision' ? '<span class="decision-tag">DECISION</span>' : ''}
+        ${g.kind === 'decision' ? '<span class="decision-tag">DECISION</span>' : g.kind === 'open' ? '<span class="decision-tag open-tag">OPEN DECISION</span>' : ''}
         ${state.role === 'brooke' || g.author === state.role ? `<button class="link-btn" data-act="log-delete" data-id="${g.id}" aria-label="Delete note">delete</button>` : ''}
       </div>
       <p>${esc(g.body)}</p>
@@ -344,6 +367,7 @@ function renderNotes() {
         <div class="row">
           <label class="radio"><input type="radio" name="kind" value="note" checked> Note</label>
           <label class="radio"><input type="radio" name="kind" value="decision"> Decision</label>
+          <label class="radio"><input type="radio" name="kind" value="open"> Open question</label>
           <button class="btn btn-solid" type="submit">POST</button>
         </div>
       </form>
@@ -357,7 +381,7 @@ function openTask(id) {
   const { data, role } = state;
   const isNew = id === 'new';
   const t = isNew
-    ? { id: '', title: '', phase_id: state.filters.phase !== 'all' ? state.filters.phase : data.phases[0]?.id, owner: 'brooke', due_date: '', status: 'not_started', notes: '' }
+    ? { id: '', title: '', phase_id: state.filters.phase !== 'all' ? state.filters.phase : data.phases[0]?.id, owner: 'brooke', due_date: '', status: 'not_started', notes: '', section: '' }
     : data.tasks.find((x) => x.id === id);
   if (!t) return;
   const admin = role === 'brooke';
@@ -376,6 +400,8 @@ function openTask(id) {
         ? `<label>Title<textarea name="title" rows="2" required>${esc(t.title)}</textarea></label>
            <div class="cols">
              <label>Phase<select name="phase_id">${opt(phaseOpts, t.phase_id)}</select></label>
+             <label>Sub-section<input name="section" list="sections" value="${esc(t.section || '')}" placeholder="e.g. Setup"></label>
+             <datalist id="sections">${[...new Set(data.tasks.map((x) => x.section).filter(Boolean))].map((x) => `<option value="${esc(x)}">`).join('')}</datalist>
              <label>Owner<select name="owner">${opt(OWNER, t.owner)}</select></label>
            </div>
            <div class="cols">
@@ -418,7 +444,7 @@ dialog.addEventListener('submit', async (e) => {
   const f = e.target;
   const fd = Object.fromEntries(new FormData(f));
   const p = { id: f.dataset.id || undefined };
-  for (const k of ['title', 'phase_id', 'owner', 'due_date', 'status', 'notes']) if (k in fd) p[k] = fd[k];
+  for (const k of ['title', 'phase_id', 'section', 'owner', 'due_date', 'status', 'notes']) if (k in fd) p[k] = fd[k];
   dialog.close();
   await act('dash_task_save', { p });
 });
