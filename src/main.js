@@ -158,7 +158,6 @@ function render() {
       ${renderPhases()}
       ${renderCheckpoints()}
       ${renderTasks()}
-      ${role === 'brooke' ? renderWaiting() : ''}
       ${renderLinks()}
       ${renderNotes()}
     </div>`;
@@ -211,10 +210,15 @@ function renderCheckpoints() {
   return `<section class="area-checkpoints"><h2>CHECKPOINTS.</h2><ol class="timeline">${items}</ol>${admin ? '<p class="fine">Tap a ring to mark a checkpoint done.</p>' : ''}</section>`;
 }
 
+const isWaitingOnKenzie = (t) => isMine(t, 'kenzie') && t.status !== 'done';
+
 function filteredTasks() {
   const { owner, phase, hideDone } = state.filters;
+  const byOwner = (t) =>
+    owner === 'all' ||
+    (owner === 'waiting' ? isWaitingOnKenzie(t) : owner === 'mine' ? isMine(t, state.role) : isMine(t, owner));
   return state.data.tasks.filter((t) =>
-    (owner === 'all' || (owner === 'mine' ? isMine(t, state.role) : isMine(t, owner))) &&
+    byOwner(t) &&
     (phase === 'all' || t.phase_id === phase) &&
     !(hideDone && t.status === 'done'));
 }
@@ -264,7 +268,8 @@ function renderTasks() {
     `<button class="chip${filters[group] === value ? ' on' : ''}" data-act="filter" data-group="${group}" data-value="${value}" aria-pressed="${filters[group] === value}">${label}</button>`;
   const ownerChips = role === 'kenzie'
     ? chip('owner', 'mine', 'My tasks') + chip('owner', 'all', 'Everything')
-    : chip('owner', 'all', 'All') + chip('owner', 'brooke', 'Brooke') + chip('owner', 'kenzie', 'Kenzie');
+    : chip('owner', 'all', 'All') + chip('owner', 'brooke', 'Brooke') + chip('owner', 'kenzie', 'Kenzie') +
+      chip('owner', 'waiting', `Waiting on Kenzie (${data.tasks.filter(isWaitingOnKenzie).length})`);
   const phaseChips = chip('phase', 'all', 'All phases') + data.phases.map((p) => chip('phase', p.id, esc(p.name))).join('');
 
   const list = filteredTasks();
@@ -283,7 +288,8 @@ function renderTasks() {
         </div>`).join('')
     : `<p class="empty">${filters.hideDone ? 'All done here.' : 'No tasks match.'}</p>`;
 
-  const title = role === 'kenzie' && filters.owner === 'mine' ? 'MY TASKS.' : 'TASKS.';
+  const title = role === 'kenzie' && filters.owner === 'mine' ? 'MY TASKS.'
+    : filters.owner === 'waiting' ? 'WAITING ON KENZIE.' : 'TASKS.';
   return `
     <section class="area-tasks">
       <div class="section-head">
@@ -296,17 +302,6 @@ function renderTasks() {
         <div class="chips"><button class="chip${filters.hideDone ? ' on' : ''}" data-act="hide-done" aria-pressed="${filters.hideDone}">Hide done</button></div>
       </div>
       ${body}
-    </section>`;
-}
-
-function renderWaiting() {
-  const ts = state.data.tasks
-    .filter((t) => isMine(t, 'kenzie') && t.status !== 'done')
-    .sort((a, b) => (a.due_date || '9999').localeCompare(b.due_date || '9999'));
-  return `
-    <section class="area-waiting">
-      <h2>WAITING ON KENZIE.</h2>
-      ${ts.length ? `<ul class="tasks compact">${ts.map((t) => taskRow(t, { showPhase: true })).join('')}</ul>` : '<p class="empty">Nothing. All caught up.</p>'}
     </section>`;
 }
 

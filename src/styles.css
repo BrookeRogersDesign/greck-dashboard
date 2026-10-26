@@ -207,23 +207,17 @@ h2 {
   grid-template-areas:
     'phases phases'
     'checkpoints checkpoints'
-    'tasks waiting'
     'tasks links'
     'tasks notes';
-  grid-template-rows: auto auto auto auto 1fr;
+  grid-template-rows: auto auto auto 1fr;
   column-gap: clamp(32px, 5vw, 72px);
 }
 .grid > section { padding-top: 48px; min-width: 0; }
 .area-phases { grid-area: phases; }
 .area-checkpoints { grid-area: checkpoints; }
 .area-tasks { grid-area: tasks; }
-.area-waiting { grid-area: waiting; }
 .area-links { grid-area: links; }
 .area-notes { grid-area: notes; }
-body[data-role='kenzie'] .grid {
-  grid-template-areas: 'phases phases' 'checkpoints checkpoints' 'tasks links' 'tasks notes';
-  grid-template-rows: auto auto auto 1fr;
-}
 
 .section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 
@@ -487,7 +481,6 @@ dialog::backdrop { background: rgba(30, 20, 18, .35); backdrop-filter: blur(3px)
   .grid > section { padding-top: 40px; }
   .area-phases { order: 1; }
   .area-checkpoints { order: 2; }
-  .area-waiting { order: 3; }
   .area-tasks { order: 4; }
   .area-links { order: 5; }
   .area-notes { order: 6; }
