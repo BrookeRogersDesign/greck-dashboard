@@ -6,11 +6,15 @@ export const event = {
   line: 'Sat Dec 5 · 11am–4pm · Hotel Saint Cecilia, Austin, TX',
 };
 
+// Shown as "Last updated" in the header.
+export const updated = '2026-10-26';
+
+// The tag above each phase name doubles as its current status.
 export const phases = [
   { id: 'comms', name: 'Client comms', tag: 'Now', target_label: 'Oct 23', target_date: '2026-10-23', sort: 1 },
-  { id: 'coming-soon', name: 'Coming-soon page', tag: 'Part 1', target_label: 'Oct 30', target_date: '2026-10-30', sort: 2 },
-  { id: 'shopify', name: 'Shopify website', tag: 'Part 1', target_label: 'Dec 1', target_date: '2026-12-01', sort: 3 },
-  { id: 'popup', name: 'Pop-up', tag: 'Part 2', target_label: 'Sat Dec 5', target_date: '2026-12-05', sort: 4 },
+  { id: 'coming-soon', name: 'Landing page', tag: 'Live — in revisions', target_label: 'Oct 30', target_date: '2026-10-30', sort: 2 },
+  { id: 'shopify', name: 'Shopify website', tag: 'In progress', target_label: 'Dec 1', target_date: '2026-12-01', sort: 3 },
+  { id: 'popup', name: 'Pop-up', tag: 'Up next', target_label: 'Sat Dec 5', target_date: '2026-12-05', sort: 4 },
 ];
 
 export const milestones = [
@@ -28,6 +32,8 @@ const t = (phase_id, section, owner, title, due, extra = {}) =>
   ({ phase_id, section, owner, title, due_date: `2026-${due}`, ...extra });
 const received = (notes) => ({ status: 'done', notes });
 const partly = (notes) => ({ status: 'in_progress', notes });
+const waiting = (notes) => ({ status: 'waiting_on', notes });
+const noDue = { due_date: null };
 
 export const tasks = [
   // ── Now: client comms
@@ -35,8 +41,17 @@ export const tasks = [
   t('comms', '', 'brooke', 'Pull 4–6 Shopify site inspirations for her to react to (layouts, product display, vibe)', '10-16'),
   t('comms', '', 'brooke', 'Send Oct 15 update email: shop structure, fonts, shot list, pop-up questions', '10-16'),
   t('comms', '', 'brooke', 'Send the game plan and timeline (casual, not a formal proposal)', '10-23'),
+  t('comms', '', 'both', 'Oct 26 check-in call', '10-26', { status: 'done' }),
+  t('comms', '', 'brooke', 'Send the Oct 26 follow-up email', '10-26', { status: 'done' }),
 
-  // ── Part 1: Coming-soon page (Shopify password page with email signup)
+  // ── Part 1: Landing page (becomes the Shopify password page with email signup)
+  t('coming-soon', 'Revisions', 'brooke', 'Switch headers and footers from green to black', '10-26',
+    { status: 'done', notes: 'Green didn’t stand out.' }),
+  t('coming-soon', 'Revisions', 'brooke', 'Explore funky background options for Kenzie to pick from', '10-30', { status: 'in_progress' }),
+  t('coming-soon', 'Revisions', 'brooke', 'Apply the updates from the Oct 26 chat', '10-30', { status: 'in_progress' }),
+  t('coming-soon', 'Revisions', 'kenzie', 'Review the landing page and give feedback on the black headers and footers', '10-30',
+    { notes: 'Preview: https://brookerogersdesign.github.io/greck-landing/' }),
+
   t('coming-soon', 'From Kenzie', 'kenzie', 'Buy domain on GoDaddy', '10-16', received('Purchased. Names not shared yet.')),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Share which domain names she bought', '10-16'),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Add Brooke to Google Drive', '10-16', received('Done. Assets still uploading.')),
@@ -53,20 +68,29 @@ export const tasks = [
   t('coming-soon', 'Setup', 'both', 'Set up a branded email if wanted (e.g., hello@ her domain)', '10-28'),
 
   t('coming-soon', 'Design + content', 'brooke', 'Convert Canva wordmark to vector SVG (font received)', '10-23',
-    { notes: 'FF Providence Sans, thick stroke; keep the two-circle lowercase "g".' }),
-  t('coming-soon', 'Design + content', 'brooke', 'Check web licensing for FF Providence Sans; use Fira Code (Google Fonts) for site text', '10-23'),
-  t('coming-soon', 'Design + content', 'brooke', 'Choose 1–3 hero images from her photo folder', '10-22'),
-  t('coming-soon', 'Design + content', 'brooke', 'Write the page: GRECK. [GUH-WRECK] definition, one-line teaser, "Join the list" CTA', '10-24'),
-  t('coming-soon', 'Design + content', 'brooke', 'Design the password page in her monospace + period style (Fira Code)', '10-28'),
-  t('coming-soon', 'Design + content', 'brooke', 'Add Instagram and Depop links', '10-28'),
+    { status: 'done', notes: 'greck and Get grecked are both SVGs now; the two-circle lowercase "g" is kept.' }),
+  t('coming-soon', 'Design + content', 'brooke', 'Check web licensing for FF Providence Sans; use Fira Code (Google Fonts) for site text', '10-23',
+    { status: 'done', notes: 'Logos are SVGs, so no font license is needed for them. Site text is Roboto Mono (Google Fonts, free for commercial use).' }),
+  t('coming-soon', 'Design + content', 'brooke', 'Choose 1–3 hero images from her photo folder', '10-22', { status: 'done' }),
+  t('coming-soon', 'Design + content', 'brooke', 'Write the page: GRECK. [GUH-WRECK] definition, one-line teaser, "Join the list" CTA', '10-24', { status: 'done' }),
+  t('coming-soon', 'Design + content', 'brooke', 'Design the password page in her monospace + period style (Fira Code)', '10-28',
+    { status: 'done', notes: 'Built and live as a preview on GitHub Pages; moves into Shopify as the password page.' }),
+  t('coming-soon', 'Design + content', 'brooke', 'Add Instagram and Depop links', '10-28', partly('Instagram is in the footer. Depop still to add.')),
   t('coming-soon', 'Design + content', 'brooke', 'Set up the welcome email for new signups', '10-29'),
 
-  t('coming-soon', 'Launch', 'brooke', 'Test on mobile and desktop', '10-29'),
+  t('coming-soon', 'Launch', 'brooke', 'Test on mobile and desktop', '10-29', { status: 'done' }),
   t('coming-soon', 'Launch', 'brooke', 'Test a signup end to end', '10-29'),
   t('coming-soon', 'Launch', 'kenzie', 'Approve the coming-soon page', '10-29'),
   t('coming-soon', 'Launch', 'both', 'Go live; Kenzie posts the link to Instagram and Depop', '10-30'),
 
   // ── Part 1: Shopify website (two tabs: available bags + sold archive by collection)
+  // Brooke keeps building the site while the pop-up materials happen in parallel.
+  t('shopify', 'Copy + color', 'brooke', 'Master copy doc: the single source of truth for all website copy', '10-26',
+    waiting('Started. Kenzie adds, cuts, and rewrites so it sounds like her. Link is in Links.')),
+  t('shopify', 'Copy + color', 'kenzie', 'Fill in the master copy doc', '', noDue),
+  t('shopify', 'Copy + color', 'brooke', 'Color combos', '10-26', waiting('Sent Oct 26. Waiting on her favorites and any tweaks or edits.')),
+  t('shopify', 'Copy + color', 'kenzie', 'Pick favorite color combos and any edits', '', noDue),
+
   t('shopify', 'From Kenzie', 'kenzie', 'React to the inspiration sites', '10-27'),
   t('shopify', 'From Kenzie', 'kenzie', 'Confirm final names for the shop tab and archive tab', '10-23',
     { notes: 'Options: GET GRECKED / GOT GRECKED, GRECK / GRECKED, or BAG / BAGGED.' }),
@@ -115,7 +139,16 @@ export const tasks = [
 
   t('popup', 'Ideas', 'brooke', 'Signage and display mood board, incl. the stacked-bag table display from her Instagram', '11-06'),
 
-  t('popup', 'Design', 'brooke', 'Business cards', '11-13'),
+  t('popup', 'Marketing', 'kenzie', 'Choose which pop-up marketing item to start first', '', noDue),
+  t('popup', 'Marketing', 'brooke', 'Posters', '', { ...noDue, notes: 'Up next. Kenzie to choose priority.' }),
+  t('popup', 'Marketing', 'brooke', 'Guerrilla-style marketing', '', { ...noDue, notes: 'Up next. Kenzie to choose priority.' }),
+  t('popup', 'Marketing', 'brooke', 'Email marketing', '', { ...noDue, notes: 'Up next. Kenzie to choose priority.' }),
+  t('popup', 'Marketing', 'brooke', 'Bag stuffers / post-purchase takeaways (4x6 cards, printed at FedEx)', '',
+    { ...noDue, notes: 'Up next. Kenzie to choose priority.' }),
+
+  t('popup', 'Design', 'brooke', 'Business cards', '11-13',
+    waiting('Designs sent Oct 26. Once Kenzie picks colors, make them print-ready before the pop-up.')),
+  t('popup', 'Design', 'kenzie', 'Pick business card colors', '', noDue),
   t('popup', 'Design', 'brooke', 'Banner or backdrop (her painted pattern + GRECK. wordmark)', '11-13'),
   t('popup', 'Design', 'brooke', 'QR code sign ("Shop online / Join the list")', '11-13'),
   t('popup', 'Design', 'brooke', 'Price menu or tent cards', '11-13'),
@@ -133,6 +166,8 @@ export const tasks = [
 ].map((task, i) => ({ status: 'not_started', notes: '', sort: i + 1, ...task }));
 
 export const links = [
+  { label: 'Landing page (live preview)', url: 'https://brookerogersdesign.github.io/greck-landing/' },
+  { label: 'Master copy doc', url: '' },
   { label: 'Domain (GoDaddy) · TBD, waiting on Kenzie', url: '' },
   { label: 'Shopify admin', url: 'https://admin.shopify.com/' },
   { label: 'Google Drive assets', url: '' },
@@ -149,4 +184,9 @@ export const log = [
   { author: 'brooke', kind: 'decision', body: 'Pop-up is one day only: Sat Dec 5, Hotel Saint Cecilia, Austin, 11am–4pm. Printed pieces ship to Kenzie in Austin.', created_at: '2026-10-15T12:02:00Z' },
   { author: 'brooke', kind: 'note', body: 'Marketing shoot is late October. Shot list is in the Oct 15 email.', created_at: '2026-10-15T12:03:00Z' },
   { author: 'brooke', kind: 'note', body: 'Thanksgiving week (Nov 23–27) is the buffer. Nothing new starts then.', created_at: '2026-10-15T12:04:00Z' },
+  { author: 'brooke', kind: 'note', body: 'Check-in call + follow-up email sent.', created_at: '2026-10-26T18:00:00Z' },
+  { author: 'brooke', kind: 'decision', body: 'Landing page is live and in revisions: https://brookerogersdesign.github.io/greck-landing/. Headers and footers switched from green to black because the green didn’t stand out.', created_at: '2026-10-26T18:01:00Z' },
+  { author: 'brooke', kind: 'note', body: 'Sent Oct 26: color combos and business card designs. Started the master copy doc, the single source of truth for all website copy. Waiting on Kenzie for all three.', created_at: '2026-10-26T18:02:00Z' },
+  { author: 'brooke', kind: 'note', body: 'Shopify site keeps moving in parallel with the pop-up materials.', created_at: '2026-10-26T18:03:00Z' },
+  { author: 'brooke', kind: 'open', body: 'Pop-up marketing: Kenzie to choose what to start first. Posters, guerrilla-style marketing, email marketing, or bag stuffers / post-purchase takeaways (4x6 cards, printed at FedEx).', created_at: '2026-10-26T18:04:00Z' },
 ];

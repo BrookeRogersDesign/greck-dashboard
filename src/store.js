@@ -35,7 +35,7 @@ function supabaseBackend() {
 // ── Demo backend ────────────────────────────────────────────────────────
 
 function demoBackend() {
-  const KEY = 'greck-demo-db-v2'; // bump when seed data changes
+  const KEY = 'greck-demo-db-v3'; // bump when seed data changes
   const id = () => crypto.randomUUID();
   const now = () => new Date().toISOString();
 

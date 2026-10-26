@@ -193,6 +193,7 @@ h2 {
   text-transform: uppercase;
 }
 .event span { font-weight: 600; letter-spacing: .14em; margin-right: 6px; }
+.event .updated { display: inline-block; margin: 0 0 0 14px; font-weight: 400; letter-spacing: .06em; color: var(--muted); }
 .who { font: 400 12.5px var(--mono); letter-spacing: .1em; color: var(--muted); text-align: right; }
 
 /* ── Grid ───────────────────────────────────────────────────────────── */

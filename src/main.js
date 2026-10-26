@@ -1,6 +1,6 @@
 import './styles.css';
 import { backend, DEMO } from './store.js';
-import { event } from './seed.js';
+import { event, updated } from './seed.js';
 
 const BASE = import.meta.env.BASE_URL;
 const CODE_KEY = 'greck-passcode';
@@ -152,7 +152,7 @@ function render() {
         <div class="stat"><span class="big">${pct(done, data.tasks.length)}%</span><span class="lbl">COMPLETE.</span></div>
       </div>
       <div class="who">${esc(OWNER[role]).toUpperCase()} · <button class="link-btn" data-act="logout">log out</button></div>
-      <p class="event"><span>POP-UP.</span> ${esc(event.line)}</p>
+      <p class="event"><span>POP-UP.</span> ${esc(event.line)}<span class="updated">Last updated ${esc(parseDate(updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }))}</span></p>
     </header>
     <div class="grid">
       ${renderPhases()}
