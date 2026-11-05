@@ -12,7 +12,7 @@ export const updated = '2026-11-05';
 // The tag above each phase name doubles as its current status.
 export const phases = [
   { id: 'comms', name: 'Client comms', tag: 'Now', target_label: 'Oct 23', target_date: '2026-10-23', sort: 1 },
-  { id: 'coming-soon', name: 'Landing page', tag: 'Live — in revisions', target_label: 'Oct 30', target_date: '2026-10-30', sort: 2 },
+  { id: 'coming-soon', name: 'Landing page', tag: 'Done — waiting on approval', target_label: 'Oct 30', target_date: '2026-10-30', sort: 2 },
   { id: 'shopify', name: 'Shopify website', tag: 'In progress', target_label: 'Dec 1', target_date: '2026-12-01', sort: 3 },
   { id: 'popup', name: 'Pop-up', tag: 'Up next', target_label: 'Sat Dec 5', target_date: '2026-12-05', sort: 4 },
 ];
@@ -48,27 +48,25 @@ export const tasks = [
   // ── Part 1: Landing page (becomes the Shopify password page with email signup)
   t('coming-soon', 'Revisions', 'brooke', 'Switch headers and footers from green to black', '10-26',
     { status: 'done', notes: 'Green didn’t stand out.' }),
-  t('coming-soon', 'Revisions', 'brooke', 'Explore funky background options for Kenzie to pick from', '10-30', { status: 'in_progress' }),
+  t('coming-soon', 'Revisions', 'brooke', 'Explore funky background options for Kenzie to pick from', '10-30', { status: 'done' }),
   t('coming-soon', 'Revisions', 'brooke', 'Apply the updates from the Oct 26 chat', '10-30', { status: 'done' }),
   t('coming-soon', 'Revisions', 'brooke', 'Swap the hero and ticker dots to the updated color palette', '11-05', { status: 'done' }),
   t('coming-soon', 'Revisions', 'brooke', 'Add an Instagram button next to Join the list', '11-05', { status: 'done' }),
-  t('coming-soon', 'Revisions', 'kenzie', 'Review the updated landing page (sent Nov 5)', '11-09',
-    { notes: 'Preview: https://brookerogersdesign.github.io/greck-landing/' }),
 
   t('coming-soon', 'From Kenzie', 'kenzie', 'Buy domain on GoDaddy', '10-16', received('Purchased. Names not shared yet.')),
-  t('coming-soon', 'From Kenzie', 'kenzie', 'Share which domain names she bought', '10-16'),
+  t('shopify', 'Setup', 'kenzie', 'Share which domain names she bought', '10-16'),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Add Brooke to Google Drive', '10-16', received('Done. Assets still uploading.')),
-  t('coming-soon', 'From Kenzie', 'kenzie', 'Create Drive folder with bag photos and artwork', '10-19', partly('Folder shared; still uploading.')),
+  t('shopify', 'Setup', 'kenzie', 'Create Drive folder with bag photos and artwork', '10-19', partly('Folder shared; still uploading.')),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Send GRECK. logo file and font name', '10-19',
     received('Wordmark is FF Providence Sans in Canva with a thick stroke; she loves the two-circle lowercase "g". Insert-card body text is Fira Code bold.')),
-  t('coming-soon', 'From Kenzie', 'kenzie', 'Upload the insert-card printout to Drive', '10-19'),
-  t('coming-soon', 'From Kenzie', 'kenzie', 'Give Brooke GoDaddy delegate access', '10-23'),
+  t('shopify', 'Setup', 'kenzie', 'Upload the insert-card printout to Drive', '10-19'),
+  t('shopify', 'Setup', 'kenzie', 'Give Brooke GoDaddy delegate access', '10-23'),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Share how she wants bags organized (series, drops, style)', '10-23', received('Two tabs: the shop (available bags) and the archive (sold bags grouped by collection).')),
-  t('coming-soon', 'From Kenzie', 'kenzie', 'Create the Shopify account in her name and add Brooke as collaborator', '10-23'),
+  t('shopify', 'Setup', 'kenzie', 'Create the Shopify account in her name and add Brooke as collaborator', '10-23'),
 
-  t('coming-soon', 'Setup', 'both', 'Pick a Shopify plan (Basic is enough to start)', '10-23'),
-  t('coming-soon', 'Setup', 'brooke', 'Connect the GoDaddy domain to Shopify (DNS records)', '10-26'),
-  t('coming-soon', 'Setup', 'both', 'Set up a branded email if wanted (e.g., hello@ her domain)', '10-28'),
+  t('shopify', 'Setup', 'both', 'Pick a Shopify plan (Basic is enough to start)', '10-23'),
+  t('shopify', 'Setup', 'brooke', 'Connect the GoDaddy domain to Shopify (DNS records)', '10-26'),
+  t('shopify', 'Setup', 'both', 'Set up a branded email if wanted (e.g., hello@ her domain)', '10-28'),
 
   t('coming-soon', 'Design + content', 'brooke', 'Convert Canva wordmark to vector SVG (font received)', '10-23',
     { status: 'done', notes: 'greck and Get grecked are both SVGs now; the two-circle lowercase "g" is kept.' }),
@@ -78,13 +76,15 @@ export const tasks = [
   t('coming-soon', 'Design + content', 'brooke', 'Write the page: GRECK. [GUH-WRECK] definition, one-line teaser, "Join the list" CTA', '10-24', { status: 'done' }),
   t('coming-soon', 'Design + content', 'brooke', 'Design the password page in her monospace + period style (Fira Code)', '10-28',
     { status: 'done', notes: 'Built and live as a preview on GitHub Pages; moves into Shopify as the password page.' }),
-  t('coming-soon', 'Design + content', 'brooke', 'Add Instagram and Depop links', '10-28', partly('Instagram is in the header and footer. Depop still to add.')),
-  t('coming-soon', 'Design + content', 'brooke', 'Set up the welcome email for new signups', '10-29'),
+  t('coming-soon', 'Design + content', 'brooke', 'Add Instagram and Depop links', '10-28', received('Instagram is in the header and footer. Depop goes in the Shopify footer.')),
 
   t('coming-soon', 'Launch', 'brooke', 'Test on mobile and desktop', '10-29', { status: 'done' }),
-  t('coming-soon', 'Launch', 'brooke', 'Test a signup end to end', '10-29'),
-  t('coming-soon', 'Launch', 'kenzie', 'Approve the coming-soon page', '10-29'),
-  t('coming-soon', 'Launch', 'both', 'Go live; Kenzie posts the link to Instagram and Depop', '10-30'),
+  t('shopify', 'Password page', 'brooke', 'Move the landing page into Shopify as the password page', '11-20'),
+  t('shopify', 'Password page', 'brooke', 'Set up the welcome email for new signups', '11-20'),
+  t('shopify', 'Password page', 'brooke', 'Test a signup end to end', '11-20'),
+  t('coming-soon', 'Launch', 'kenzie', 'Approve the landing page to go live (updated version sent Nov 5)', '11-09',
+    { notes: 'Preview: https://brookerogersdesign.github.io/greck-landing/' }),
+  t('coming-soon', 'Launch', 'both', 'Go live; Kenzie posts the link to Instagram and Depop', '', { due_date: null, notes: 'After Kenzie approves.' }),
 
   // ── Part 1: Shopify website (two tabs: available bags + sold archive by collection)
   // Brooke keeps building the site while the pop-up materials happen in parallel.
@@ -192,5 +192,6 @@ export const log = [
   { author: 'brooke', kind: 'note', body: 'Sent Oct 26: color combos and business card designs. Started the master copy doc, the single source of truth for all website copy. Waiting on Kenzie for all three.', created_at: '2026-10-26T18:02:00Z' },
   { author: 'brooke', kind: 'note', body: 'Shopify site keeps moving in parallel with the pop-up materials.', created_at: '2026-10-26T18:03:00Z' },
   { author: 'brooke', kind: 'note', body: 'Sent Nov 5: updated colors, the updated landing page (new palette dots, Instagram button in the header), and updated business cards. Waiting on Kenzie’s picks.', created_at: '2026-11-05T18:00:00Z' },
+  { author: 'brooke', kind: 'decision', body: 'Landing page design is done and waiting on Kenzie’s approval to go live. Setup items (Shopify account, domain, welcome email, signup test) moved to the Shopify phase.', created_at: '2026-11-05T18:01:00Z' },
   { author: 'brooke', kind: 'open', body: 'Pop-up marketing: Kenzie to choose what to start first. Posters, guerrilla-style marketing, email marketing, or bag stuffers / post-purchase takeaways (4x6 cards, printed at FedEx).', created_at: '2026-10-26T18:04:00Z' },
 ];
