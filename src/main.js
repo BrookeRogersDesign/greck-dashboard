@@ -16,7 +16,7 @@ const state = {
   code: null,
   role: null,
   data: null,
-  filters: { owner: 'all', phase: 'all', hideDone: false },
+  filters: { owner: 'all', phase: 'all', hideDone: true },
   editingLink: null,
   pendingRefresh: false,
 };
@@ -130,7 +130,7 @@ function renderLogin(error = '') {
 function restoreFilters(role) {
   let saved = {};
   try { saved = JSON.parse(store.get(`${UI_KEY}-${role}`)) || {}; } catch {}
-  state.filters = { owner: role === 'kenzie' ? 'mine' : 'all', phase: 'all', hideDone: false, ...saved };
+  state.filters = { owner: role === 'kenzie' ? 'mine' : 'all', phase: 'all', hideDone: true, ...saved, phase: 'all' };
 }
 const saveFilters = () => store.set(`${UI_KEY}-${state.role}`, JSON.stringify(state.filters));
 
@@ -270,7 +270,6 @@ function renderTasks() {
     ? chip('owner', 'mine', 'My tasks') + chip('owner', 'all', 'Everything')
     : chip('owner', 'all', 'All') + chip('owner', 'brooke', 'Brooke') + chip('owner', 'kenzie', 'Kenzie') +
       chip('owner', 'waiting', `Waiting on Kenzie (${data.tasks.filter(isWaitingOnKenzie).length})`);
-  const phaseChips = chip('phase', 'all', 'All phases') + data.phases.map((p) => chip('phase', p.id, esc(p.name))).join('');
 
   const list = filteredTasks();
   const groups = data.phases
@@ -298,7 +297,6 @@ function renderTasks() {
       </div>
       <div class="filters">
         <div class="chips" role="group" aria-label="Owner">${ownerChips}</div>
-        <div class="chips" role="group" aria-label="Phase">${phaseChips}</div>
         <div class="chips"><button class="chip${filters.hideDone ? ' on' : ''}" data-act="hide-done" aria-pressed="${filters.hideDone}">Hide done</button></div>
       </div>
       ${body}
