@@ -34,11 +34,16 @@ const noDue = { due_date: null };
 
 export const tasks = [
   // ── Landing page
+  t('coming-soon', '', 'brooke', 'Wordmark SVGs, fonts, hero photos, and page copy', '10-23', { status: 'done' }),
+  t('coming-soon', '', 'brooke', 'Design and build the landing page; test on mobile and desktop', '10-28', { status: 'done' }),
+  t('coming-soon', '', 'brooke', 'Revisions: black header and footer, new palette dots, Instagram button', '11-05', { status: 'done' }),
   t('coming-soon', '', 'kenzie', 'Approve the landing page to go live', '11-09',
     { notes: 'Updated version sent Nov 5. Preview: https://brookerogersdesign.github.io/greck-landing/' }),
   t('coming-soon', '', 'both', 'Go live; Kenzie posts the link to Instagram and Depop', '', { ...noDue, notes: 'After Kenzie approves.' }),
 
   // ── Shopify website (two tabs: available bags + sold archive by collection)
+  t('shopify', '', 'kenzie', 'Buy the domain, share the Drive, send the logo and font', '10-19', { status: 'done' }),
+  t('shopify', '', 'kenzie', 'Decide the shop structure: shop tab + sold archive by collection', '10-23', { status: 'done' }),
   t('shopify', '', 'kenzie', 'Create the Shopify account and add Brooke as collaborator', '10-23'),
   t('shopify', '', 'kenzie', 'Share the domain names and give Brooke GoDaddy delegate access', '10-23'),
   t('shopify', '', 'kenzie', 'Fill in the master copy doc', '', noDue),
@@ -63,6 +68,8 @@ export const tasks = [
   t('shopify', '', 'brooke', 'Launch: turn off the password page and send the launch email', '12-01'),
 
   // ── Pop-up (Sat Dec 5, Hotel Saint Cecilia, Austin)
+  t('popup', '', 'kenzie', 'Send location, date, and hours', '11-02', { status: 'done', notes: 'Hotel Saint Cecilia, Austin, TX. Sat Dec 5, 11am–4pm. One day only.' }),
+  t('popup', '', 'brooke', 'Business card designs sent', '10-26', { status: 'done' }),
   t('popup', '', 'brooke', 'Pop-up emails (email marketing)', '11-20'),
   t('popup', '', 'brooke', 'Instagram posts announcing the pop-up', '11-13'),
   t('popup', '', 'brooke', 'Business cards: order once approved', '11-16',
