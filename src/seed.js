@@ -7,7 +7,7 @@ export const event = {
 };
 
 // Shown as "Last updated" in the header.
-export const updated = '2026-10-26';
+export const updated = '2026-11-05';
 
 // The tag above each phase name doubles as its current status.
 export const phases = [
@@ -43,13 +43,16 @@ export const tasks = [
   t('comms', '', 'brooke', 'Send the game plan and timeline (casual, not a formal proposal)', '10-23'),
   t('comms', '', 'both', 'Oct 26 check-in call', '10-26', { status: 'done' }),
   t('comms', '', 'brooke', 'Send the Oct 26 follow-up email', '10-26', { status: 'done' }),
+  t('comms', '', 'brooke', 'Send Nov 5 update: updated colors, landing page, business cards', '11-05', { status: 'done' }),
 
   // ── Part 1: Landing page (becomes the Shopify password page with email signup)
   t('coming-soon', 'Revisions', 'brooke', 'Switch headers and footers from green to black', '10-26',
     { status: 'done', notes: 'Green didn’t stand out.' }),
   t('coming-soon', 'Revisions', 'brooke', 'Explore funky background options for Kenzie to pick from', '10-30', { status: 'in_progress' }),
-  t('coming-soon', 'Revisions', 'brooke', 'Apply the updates from the Oct 26 chat', '10-30', { status: 'in_progress' }),
-  t('coming-soon', 'Revisions', 'kenzie', 'Review the landing page and give feedback on the black headers and footers', '10-30',
+  t('coming-soon', 'Revisions', 'brooke', 'Apply the updates from the Oct 26 chat', '10-30', { status: 'done' }),
+  t('coming-soon', 'Revisions', 'brooke', 'Swap the hero and ticker dots to the updated color palette', '11-05', { status: 'done' }),
+  t('coming-soon', 'Revisions', 'brooke', 'Add an Instagram button next to Join the list', '11-05', { status: 'done' }),
+  t('coming-soon', 'Revisions', 'kenzie', 'Review the updated landing page (sent Nov 5)', '11-09',
     { notes: 'Preview: https://brookerogersdesign.github.io/greck-landing/' }),
 
   t('coming-soon', 'From Kenzie', 'kenzie', 'Buy domain on GoDaddy', '10-16', received('Purchased. Names not shared yet.')),
@@ -75,7 +78,7 @@ export const tasks = [
   t('coming-soon', 'Design + content', 'brooke', 'Write the page: GRECK. [GUH-WRECK] definition, one-line teaser, "Join the list" CTA', '10-24', { status: 'done' }),
   t('coming-soon', 'Design + content', 'brooke', 'Design the password page in her monospace + period style (Fira Code)', '10-28',
     { status: 'done', notes: 'Built and live as a preview on GitHub Pages; moves into Shopify as the password page.' }),
-  t('coming-soon', 'Design + content', 'brooke', 'Add Instagram and Depop links', '10-28', partly('Instagram is in the footer. Depop still to add.')),
+  t('coming-soon', 'Design + content', 'brooke', 'Add Instagram and Depop links', '10-28', partly('Instagram is in the header and footer. Depop still to add.')),
   t('coming-soon', 'Design + content', 'brooke', 'Set up the welcome email for new signups', '10-29'),
 
   t('coming-soon', 'Launch', 'brooke', 'Test on mobile and desktop', '10-29', { status: 'done' }),
@@ -88,7 +91,7 @@ export const tasks = [
   t('shopify', 'Copy + color', 'brooke', 'Master copy doc: the single source of truth for all website copy', '10-26',
     waiting('Started. Kenzie adds, cuts, and rewrites so it sounds like her. Link is in Links.')),
   t('shopify', 'Copy + color', 'kenzie', 'Fill in the master copy doc', '', noDue),
-  t('shopify', 'Copy + color', 'brooke', 'Color combos', '10-26', waiting('Sent Oct 26. Waiting on her favorites and any tweaks or edits.')),
+  t('shopify', 'Copy + color', 'brooke', 'Color combos', '10-26', waiting('Sent Oct 26; updated colors sent Nov 5. Waiting on her favorites and any edits.')),
   t('shopify', 'Copy + color', 'kenzie', 'Pick favorite color combos and any edits', '', noDue),
 
   t('shopify', 'From Kenzie', 'kenzie', 'React to the inspiration sites', '10-27'),
@@ -147,7 +150,7 @@ export const tasks = [
     { ...noDue, notes: 'Up next. Kenzie to choose priority.' }),
 
   t('popup', 'Design', 'brooke', 'Business cards', '11-13',
-    waiting('Designs sent Oct 26. Once Kenzie picks colors, make them print-ready before the pop-up.')),
+    waiting('Designs sent Oct 26; updated cards sent Nov 5. Once Kenzie picks, make them print-ready before the pop-up.')),
   t('popup', 'Design', 'kenzie', 'Pick business card colors', '', noDue),
   t('popup', 'Design', 'brooke', 'Banner or backdrop (her painted pattern + GRECK. wordmark)', '11-13'),
   t('popup', 'Design', 'brooke', 'QR code sign ("Shop online / Join the list")', '11-13'),
@@ -188,5 +191,6 @@ export const log = [
   { author: 'brooke', kind: 'decision', body: 'Landing page is live and in revisions: https://brookerogersdesign.github.io/greck-landing/. Headers and footers switched from green to black because the green didn’t stand out.', created_at: '2026-10-26T18:01:00Z' },
   { author: 'brooke', kind: 'note', body: 'Sent Oct 26: color combos and business card designs. Started the master copy doc, the single source of truth for all website copy. Waiting on Kenzie for all three.', created_at: '2026-10-26T18:02:00Z' },
   { author: 'brooke', kind: 'note', body: 'Shopify site keeps moving in parallel with the pop-up materials.', created_at: '2026-10-26T18:03:00Z' },
+  { author: 'brooke', kind: 'note', body: 'Sent Nov 5: updated colors, the updated landing page (new palette dots, Instagram button in the header), and updated business cards. Waiting on Kenzie’s picks.', created_at: '2026-11-05T18:00:00Z' },
   { author: 'brooke', kind: 'open', body: 'Pop-up marketing: Kenzie to choose what to start first. Posters, guerrilla-style marketing, email marketing, or bag stuffers / post-purchase takeaways (4x6 cards, printed at FedEx).', created_at: '2026-10-26T18:04:00Z' },
 ];
