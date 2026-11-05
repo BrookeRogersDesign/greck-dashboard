@@ -48,7 +48,6 @@ export const tasks = [
   // ── Part 1: Landing page (becomes the Shopify password page with email signup)
   t('coming-soon', 'Revisions', 'brooke', 'Switch headers and footers from green to black', '10-26',
     { status: 'done', notes: 'Green didn’t stand out.' }),
-  t('coming-soon', 'Revisions', 'brooke', 'Explore funky background options for Kenzie to pick from', '10-30', { status: 'done' }),
   t('coming-soon', 'Revisions', 'brooke', 'Apply the updates from the Oct 26 chat', '10-30', { status: 'done' }),
   t('coming-soon', 'Revisions', 'brooke', 'Swap the hero and ticker dots to the updated color palette', '11-05', { status: 'done' }),
   t('coming-soon', 'Revisions', 'brooke', 'Add an Instagram button next to Join the list', '11-05', { status: 'done' }),
@@ -93,6 +92,7 @@ export const tasks = [
   t('shopify', 'Copy + color', 'kenzie', 'Fill in the master copy doc', '', noDue),
   t('shopify', 'Copy + color', 'brooke', 'Color combos', '10-26', waiting('Sent Oct 26; updated colors sent Nov 5. Waiting on her favorites and any edits.')),
   t('shopify', 'Copy + color', 'kenzie', 'Pick favorite color combos and any edits', '', noDue),
+  t('shopify', 'Copy + color', 'brooke', 'Explore funky background options for the website for Kenzie to pick from', '11-20', { status: 'in_progress' }),
 
   t('shopify', 'From Kenzie', 'kenzie', 'React to the inspiration sites', '10-27'),
   t('shopify', 'From Kenzie', 'kenzie', 'Confirm final names for the shop tab and archive tab', '10-23',
