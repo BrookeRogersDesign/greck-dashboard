@@ -36,7 +36,7 @@ insert into tasks (title, phase_id, section, owner, due_date, status, notes, sor
   ('Buy domain on GoDaddy', 'coming-soon', 'From Kenzie', 'kenzie', '2026-10-16', 'done', 'Purchased. Names not shared yet.', '12'),
   ('Share which domain names she bought', 'shopify', 'Setup', 'kenzie', '2026-10-16', 'not_started', '', '13'),
   ('Add Brooke to Google Drive', 'coming-soon', 'From Kenzie', 'kenzie', '2026-10-16', 'done', 'Done. Assets still uploading.', '14'),
-  ('Create Drive folder with bag photos and artwork', 'shopify', 'Setup', 'kenzie', '2026-10-19', 'in_progress', 'Folder shared; still uploading.', '15'),
+  ('Add bag photos and artwork to the Drive folder (ongoing)', 'shopify', 'Setup', 'kenzie', null, 'in_progress', 'Folder shared. Ongoing, no deadline: she adds new bags and artwork as they come.', '15'),
   ('Send GRECK. logo file and font name', 'coming-soon', 'From Kenzie', 'kenzie', '2026-10-19', 'done', 'Wordmark is FF Providence Sans in Canva with a thick stroke; she loves the two-circle lowercase "g". Insert-card body text is Fira Code bold.', '16'),
   ('Upload the insert-card printout to Drive', 'shopify', 'Setup', 'kenzie', '2026-10-19', 'not_started', '', '17'),
   ('Give Brooke GoDaddy delegate access', 'shopify', 'Setup', 'kenzie', '2026-10-23', 'not_started', '', '18'),

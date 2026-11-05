@@ -55,7 +55,7 @@ export const tasks = [
   t('coming-soon', 'From Kenzie', 'kenzie', 'Buy domain on GoDaddy', '10-16', received('Purchased. Names not shared yet.')),
   t('shopify', 'Setup', 'kenzie', 'Share which domain names she bought', '10-16'),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Add Brooke to Google Drive', '10-16', received('Done. Assets still uploading.')),
-  t('shopify', 'Setup', 'kenzie', 'Create Drive folder with bag photos and artwork', '10-19', partly('Folder shared; still uploading.')),
+  t('shopify', 'Setup', 'kenzie', 'Add bag photos and artwork to the Drive folder (ongoing)', '', { ...noDue, status: 'in_progress', notes: 'Folder shared. Ongoing, no deadline: she adds new bags and artwork as they come.' }),
   t('coming-soon', 'From Kenzie', 'kenzie', 'Send GRECK. logo file and font name', '10-19',
     received('Wordmark is FF Providence Sans in Canva with a thick stroke; she loves the two-circle lowercase "g". Insert-card body text is Fira Code bold.')),
   t('shopify', 'Setup', 'kenzie', 'Upload the insert-card printout to Drive', '10-19'),
